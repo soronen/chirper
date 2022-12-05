@@ -13,6 +13,19 @@ const chirpSchema = new Schema(
       required: true,
       maxLength: 280,
     },
+    images: {
+      type: [String],
+      validate: [
+        {
+          validator: value => value.length <= 4,
+          message: 'Array must have a length of 0-4',
+        },
+        {
+          validator: value => value.every(str => str.length <= 100),
+          message: 'Strings in array must be less than 100 characters long',
+        },
+      ],
+    },
     likes: {
       type: Number,
       required: true,
@@ -21,41 +34,5 @@ const chirpSchema = new Schema(
   { timestamps: true }
 )
 
-const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      maxLength: 16,
-    },
-    passHash: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-      maxLength: 280,
-    },
-    pfpUrl: {
-      type: String,
-      required: true,
-      maxLength: 100,
-    },
-    verified: {
-      type: Boolean,
-      required: true,
-    },
-    followers: [{
-      username: {type: String, maxLength: 16,}
-    }],
-    follows: [{
-      username: {type: String, maxLength: 16,}
-    }],
-  },
-  { timestamps: true }
-)
-
-
 module.exports = mongoose.model('Chirp', chirpSchema)
-module.exports = mongoose.model('User', userSchema)
+
