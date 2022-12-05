@@ -14,7 +14,7 @@ const Chirp = require('./models/ChirpModel');
 const User = require('./models/userModel');
 
 
-//validoi jwt tokeni.
+
 function validate(token){
 
     try {
@@ -28,7 +28,30 @@ function validate(token){
 }
 
 
-//hae kaikki postit
+ /** 
+* @api {get} /chirps Get all chirps
+* @apiName GetChirps
+* @apiGroup Chirps
+* 
+* @apiSuccess {Array} chirps Array of all chirps
+* 
+* @apiSuccessExample {json} Success-Response:
+* HTTP/1.1 200 OK
+* [
+*     {
+*         "username": "johnsmith",
+*         "content": "This is my first chirp!",
+*         "images": ["image1.jpg", "image2.jpg"],
+*         "likes": 0
+*     },
+*     {
+*         "username": "janesmith",
+*         "content": "I love chirping!",
+*         "images": ["image3.jpg"],
+*         "likes": 5
+*     }
+* ]
+*/
 server.get('/chirps', async (req, res) => {
     
     Chirp.find().then(x => {
@@ -38,7 +61,33 @@ server.get('/chirps', async (req, res) => {
     })
 })
 
-//etsi käyttäjä / ja palauttaa tän jos on olemassa
+/** 
+* @api {get} /:id Get user by username
+* @apiName GetUser
+* @apiGroup User
+* 
+* @apiParam {String} username User's username
+* 
+* @apiSuccess {Object} user User object
+* 
+* @apiSuccessExample {json} Success-Response:
+* HTTP/1.1 200 OK
+* {
+*     "username": "johnsmith",
+*     "name": "John Smith",
+*     "email": "johnsmith@gmail.com",
+*     "followers": ["janesmith", "johndoe"],
+*     "following": ["johndoe", "janedoe"]
+* }
+* 
+* @apiError (Error 404) UserNotFound The <code>username</code> of the User was not found.
+* 
+* @apiErrorExample {json} Error-Response:
+* HTTP/1.1 404 Not Found
+* {
+*     "error": "User not found"
+* }
+*/
 server.get('/:id', async (req, res) => {
     
     User.exists({username : req.params.id}).then(x => {
@@ -56,8 +105,26 @@ server.get('/:id', async (req, res) => {
 
 })
 
-//laheta posti
-//ottaa vastaan json bodyn parametreillä content,images[],jwt
+/** 
+* @api {post} /chirp Post a new chirp
+* @apiName PostChirp
+* @apiGroup Chirp
+* 
+* @apiParam {String} jwt JSON Web Token for authentication
+* @apiParam {String} content Chirp content
+* @apiParam {Array} images Array of image URLs
+* 
+* @apiSuccessExample {json} Success-Response:
+* HTTP/1.1 200 OK
+* 
+* @apiError (Error 520) InvalidJWT The provided JWT is invalid.
+* 
+* @apiErrorExample {json} Error-Response:
+* HTTP/1.1 520 Invalid JWT
+* {
+*     "error": "Invalid JWT token"
+* }
+*/
 server.post('/chirp', async (req, res) => {
 
     let jwtdata = validate(req.body.jwt);
@@ -83,7 +150,30 @@ server.post('/chirp', async (req, res) => {
    
 })
 
-//rekisteröityminen ottaa json parametreina username ja password
+/** 
+* @api {post} /register Register a new user
+* @apiName Register
+* @apiGroup User
+* 
+* @apiParam {String} username User's username
+* @apiParam {String} password User's password
+* 
+* @apiSuccess {String} jwt JSON Web Token for authentication
+* 
+* @apiSuccessExample {json} Success-Response:
+* HTTP/1.1 200 OK
+* {
+*     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+* }
+* 
+* @apiError (Error 403) UserExists The provided <code>username</code> is already taken.
+* 
+* @apiErrorExample {json} Error-Response:
+* HTTP/1.1 403 Forbidden
+* {
+*     "message": "User already exists"
+* }
+*/
 server.post('/register', async (req, res) => {
     
     await User.exists({username: req.body.username}).then((out) => {
@@ -117,7 +207,32 @@ server.post('/register', async (req, res) => {
 
 })
 
-//login using username and password
+/** 
+* @api {post} /login Login using username and password
+* @apiName Login
+* @apiGroup User
+* 
+* @apiParam {String} username User's username
+* @apiParam {String} password User's password
+* 
+* @apiSuccess {String} jwt JSON Web Token for authentication
+* 
+* @apiSuccessExample {json} Success-Response:
+* HTTP/1.1 200 OK
+* {
+*     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+* }
+* 
+* @apiError (Error 404) UserNotFound The provided <code>username</code> was not found.
+* 
+* @apiError (Error 403) InvalidPassword The provided <code>password</code> is incorrect.
+* 
+* @apiErrorExample {json} Error-Response:
+* HTTP/1.1 403 Forbidden
+* {
+*     "error": "Invalid password"
+* }
+*/
 server.post('/login', async (req, res) => {
     
 
