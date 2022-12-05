@@ -20,7 +20,7 @@ function Navbar() {
 
   return (
     <header>
-      <div className='bg-purple-700 text-white h-12 text-lg flex flex-row justify-between items-center px-4'>
+      <div className='bg-violet-700 text-white h-12 text-lg flex flex-row justify-between items-center px-4'>
         <div className='flex gap-4'>
           <Link to='/'>
             <h1>Home</h1>
