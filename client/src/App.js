@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className='App'>
-      <HashRouter>
+      <HashRouter basename='/'>
         <Navbar></Navbar>
         <div className='bg-purple-100 min-h-screen max-h'>
           <Routes>
