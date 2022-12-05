@@ -1,30 +1,33 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext'
 
 // pages
 import Home from './pages/Home'
-import Login from './pages/Login'
 import Signup from './pages/Signup'
 
 // components
 import Navbar from './components/Navbar'
 
+// pages
+import NotFound from './pages/NotFound'
+import Profile from './pages/Profile'
+import User from './pages/User'
+
 function App() {
-  const { user } = useAuthContext()
 
   return (
     <div className='App'>
       <HashRouter>
         <Navbar></Navbar>
-        <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/login" element={user ? <Home /> : <Navigate to="/login" />} ></Route>
-          <Route path="/register" element={user ? <Home /> : <Navigate to="/register" />} ></Route>
-        </Routes>
+        <div className='bg-purple-100 min-h-screen max-h'>
+          <Routes>
+            <Route path='/' element={<Home></Home>}></Route>
+            <Route path='/profile' element={<Profile></Profile>}></Route>
+            <Route path='/user/:id' element={<User></User>}></Route>
+            <Route path='/register' element={<Signup></Signup>}></Route>
+            <Route path='/*' element={<NotFound></NotFound>}></Route>
+          </Routes>
+        </div>
       </HashRouter>
-      <Home></Home>
-      <Login></Login>
-      <Signup></Signup>
     </div>
   )
 }
