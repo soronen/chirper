@@ -10,7 +10,7 @@ function LoginForm() {
   return (
     <form
       onSubmit={handlesubmit}
-      className='flex flex-col bg-violet-400 text-white p-4 rounded-lg'
+      className='flex flex-col bg-pink-400 text-white p-3 rounded-lg'
     >
       <h3 className='text-2xl font-bold pb-2'>Log in</h3>
       <label>Username: </label>
@@ -27,7 +27,7 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <button className='bg-violet-600 hover:bg-violet-300 mt-2 p-2 rounded-md'>
+      <button className='bg-violet-600 hover:bg-violet-500 mt-3 p-2 rounded-md'>
         Log in
       </button>
     </form>

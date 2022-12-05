@@ -12,12 +12,12 @@ function LoginOrSignup() {
 
   return (
     <>
-      <button onClick={toggleLogin}>Login</button>
-      <Link to='/register' className=''>
+      <button onClick={toggleLogin} className='rounded-lg p-2 hover:bg-violet-500'>Login</button>
+      <Link to='/register' className='rounded-lg p-2 hover:bg-violet-500'>
         <h1>Sign up</h1>
       </Link>
       <div
-        className='absolute top-14 right-4'
+        className='absolute top-16 right-4 shadow-xl'
         style={{ visibility: loginPopupVisible ? 'visible' : 'hidden' }}
       >
         <LoginForm></LoginForm>

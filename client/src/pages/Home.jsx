@@ -1,14 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Chirp from '../components/Chirp'
 
 function Home() {
   return (
-    <>
-      <div>This is the home page ✨</div>
-      <Link to='/user/exampleid'>
-        <h1>example user page</h1>
-      </Link>
-    </>
+    <div className='pb-20'>
+      <div className='text-5xl font-extrabold text-violet-800 text-center py-16'>Home page 🐦</div>
+
+      <ul className='flex flex-col items-center'>
+        <Chirp></Chirp>
+        <Chirp></Chirp>
+      </ul>
+    </div>
   )
 }
 
