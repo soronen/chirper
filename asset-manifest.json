@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.5863231b.css",
-    "main.js": "/static/js/main.f5590d34.js",
-    "index.html": "/index.html",
-    "main.5863231b.css.map": "/static/css/main.5863231b.css.map",
-    "main.f5590d34.js.map": "/static/js/main.f5590d34.js.map"
+    "main.css": "/chirper/static/css/main.5863231b.css",
+    "main.js": "/chirper/static/js/main.f5590d34.js",
+    "index.html": "/chirper/index.html",
+    "main.5863231b.css.map": "/chirper/static/css/main.5863231b.css.map",
+    "main.f5590d34.js.map": "/chirper/static/js/main.f5590d34.js.map"
   },
   "entrypoints": [
     "static/css/main.5863231b.css",
