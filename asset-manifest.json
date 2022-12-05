@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chirper/static/css/main.5863231b.css",
+    "main.js": "/chirper/static/js/main.49d1eaec.js",
+    "index.html": "/chirper/index.html",
+    "main.5863231b.css.map": "/chirper/static/css/main.5863231b.css.map",
+    "main.49d1eaec.js.map": "/chirper/static/js/main.49d1eaec.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5863231b.css",
+    "static/js/main.49d1eaec.js"
+  ]
+}
