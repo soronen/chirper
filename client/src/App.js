@@ -18,7 +18,7 @@ function App() {
     <div className='App'>
       <HashRouter basename='/'>
         <Navbar></Navbar>
-        <div className='bg-purple-100 min-h-screen max-h'>
+        <div className='bg-violet-100 min-h-screen max-h'>
           <Routes>
             <Route path='/' element={<Home></Home>}></Route>
             <Route path='/profile' element={<Profile></Profile>}></Route>
