@@ -10,9 +10,5 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {
-    prettier: {
-      'space-before-function-paren': ['error', 'never'],
-    },
-  },
+  rules: { 'react/prop-types': ['off'] },
 }

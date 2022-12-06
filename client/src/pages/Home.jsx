@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Chirp from '../components/Chirp'
 import NewChirp from '../components/NewChirp'
 

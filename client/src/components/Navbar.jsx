@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 // components
-import LoginForm from './LoginForm'
 import LoginOrSignup from './LoginOrSignup'
 
 function Navbar() {
@@ -11,12 +9,6 @@ function Navbar() {
   console.log(location.pathname)
 
   const [loggedIn, setLoggedIn] = useState(true)
-  const [loginPopupVisible, setLoginPopupVisible] = useState(false)
-
-  const toggleLogin = () => {
-    console.log('toggle', loginPopupVisible)
-    loginPopupVisible ? setLoginPopupVisible(false) : setLoginPopupVisible(true)
-  }
 
   const toggleLogOut = () => {
     window.confirm('Are you sure you want to log out?')
