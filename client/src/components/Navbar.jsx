@@ -25,18 +25,18 @@ function Navbar() {
 
   return (
     <header>
-      <div className='bg-violet-700 text-white h-14 text-lg flex flex-row justify-between items-center px-4'>
+      <div className='bg-indigo-500 text-white h-14 text-lg flex flex-row justify-between items-center px-4'>
         <div className='flex gap-6'>
-          <Link to='/' className='rounded-lg p-2 hover:bg-violet-500' style={{ 'backgroundColor': location.pathname === '/' ? '#8b5cf6' : '' }}>
+          <Link to='/' className='rounded-lg p-2 hover:bg-violet-400' style={{ 'backgroundColor': location.pathname === '/' ? '#a78bfa' : '' }}>
             <h1>Home</h1>
           </Link>
-          <Link to='/profile' className='rounded-lg p-2 hover:bg-violet-500' style={{ 'backgroundColor': location.pathname === '/profile' ? '#8b5cf6' : '' }}>
+          <Link to='/profile' className='rounded-lg p-2 hover:bg-violet-400' style={{ 'backgroundColor': location.pathname === '/profile' ? '#a78bfa' : '' }}>
             <h1>Profile</h1>
           </Link>
         </div>
         <div className='flex flex-row gap-6'>
           {loggedIn ? (
-            <button onClick={toggleLogOut} className='rounded-lg p-2 hover:bg-violet-500'>Log out</button>
+            <button onClick={toggleLogOut} className='rounded-lg p-2 hover:bg-violet-400'>Log out</button>
           ) : (
             <LoginOrSignup></LoginOrSignup>
           )}

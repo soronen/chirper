@@ -17,10 +17,10 @@ import About from './pages/About'
 function App() {
 
   return (
-    <div className=' bg-violet-200 min-h-screen flex flex-col'>
+    <div className='bg-indigo-500 min-h-screen flex flex-col'>
       <HashRouter basename='/'>
         <Navbar></Navbar>
-        <div className='min-h-full flex-grow'>
+        <div className='min-h-full flex-grow bg-violet-200'>
           <Routes>
             <Route path='/' element={<Home></Home>}></Route>
             <Route path='/profile' element={<Profile></Profile>}></Route>

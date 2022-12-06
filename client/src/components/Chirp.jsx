@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Chirp() {
   return (
-    <div className='bg-white text-black rounded-lg p-2 m-2 shadow-xl w-4/5 max-w-2xl'>
+    <div className='bg-white text-black rounded-lg p-2 m-2 shadow-xl w-5/6 max-w-2xl'>
       <div className='flex justify-between pb-2'>
         <Link to='/user/exampleid' className='hover:underline'>
           <h1>User @user</h1>

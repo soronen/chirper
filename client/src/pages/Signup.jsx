@@ -14,31 +14,31 @@ function Signup() {
       <div className=' flex flex-col items-center'>
         <form
           onSubmit={handlesubmit}
-          className='flex flex-col bg-pink-400 text-white p-4 rounded-lg w-3/6 shadow-xl'
+          className='flex flex-col bg-violet-400 text-white p-4 rounded-lg w-3/6 shadow-xl'
         >
           <h3 className='text-2xl font-bold pb-4'>Register</h3>
-          <label className=''>Username: </label>
+          <label className='pb-1'>Username: </label>
           <input
             className='text-black rounded-md p-1'
             type='email'
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
-          <label className='pt-4'>Password: </label>
+          <label className='pb-1 pt-4'>Password: </label>
           <input
             className='text-black rounded-md p-1'
             type='password'
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <label className='pt-4'>Retype password: </label>
+          <label className='pb-1 pt-4'>Retype password: </label>
           <input
             className='text-black rounded-md p-1'
             type='password'
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <button className='bg-violet-600 hover:bg-violet-500 mt-10 p-6 rounded-md text-xl font-bold'>
+          <button className='bg-pink-700 hover:bg-pink-500 mt-10 p-6 rounded-md text-xl font-bold'>
             Submit
           </button>
         </form>
