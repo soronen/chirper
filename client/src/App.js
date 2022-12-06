@@ -1,3 +1,4 @@
+import React from 'react'
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // pages
@@ -15,7 +16,6 @@ import Footer from './components/Footer'
 import About from './pages/About'
 
 function App() {
-
   return (
     <div className='bg-indigo-500 min-h-screen flex flex-col'>
       <HashRouter basename='/'>

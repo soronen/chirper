@@ -6,7 +6,9 @@ import NewChirp from '../components/NewChirp'
 function Home() {
   return (
     <div className='pb-20'>
-      <div className='text-5xl font-extrabold text-violet-800 text-center py-16'>Home page 🐦</div>
+      <div className='text-5xl font-extrabold text-violet-800 text-center py-16'>
+        Home page 🐦
+      </div>
 
       <ul className='flex flex-col items-center'>
         <NewChirp></NewChirp>

@@ -19,14 +19,14 @@ function NewChirp() {
     >
       <h3 className='text-2xl font-bold pb-2'>Create a new post:</h3>
       <textarea
-        class='text-black resize-none autofill:no rounded-lg p-2 flex-grow'
+        className='text-black resize-none autofill:no rounded-lg p-2 flex-grow'
         type='text'
         onChange={(e) => setChirp(e.target.value)}
         value={chirp}
       />
       <div className='flex justify-between items-end'>
         <div>
-          <h1 class='font-bold pt-2 pb-1'>Attach a picture:</h1>
+          <h1 className='font-bold pt-2 pb-1'>Attach a picture:</h1>
           <input
             type='file'
             accept='image/png, image/gif, image/jpeg'
