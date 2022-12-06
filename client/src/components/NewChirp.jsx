@@ -8,7 +8,7 @@ function NewChirp() {
     console.log(e)
 
     if (chirp.length > 280) {
-      alert('Posts must be fever than 280 characters!')
+      alert('Posts must be fewer than 280 characters!')
     }
   }
 
