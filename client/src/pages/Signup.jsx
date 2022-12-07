@@ -14,7 +14,7 @@ function Signup() {
       <div className=' flex flex-col items-center'>
         <form
           onSubmit={handlesubmit}
-          className='flex flex-col bg-violet-400 text-white p-4 rounded-lg w-3/6 shadow-xl'
+          className='flex flex-col bg-violet-400 text-white p-4 rounded-lg w-5/6 max-w-2xl shadow-xl'
         >
           <h3 className='text-2xl font-bold pb-4'>Register</h3>
           <label className='pb-1'>Username: </label>
