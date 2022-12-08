@@ -1,14 +1,38 @@
 import React, { useState } from 'react'
+import { useAuthContext } from '../hooks/useAuthContext'
 
-function NewChirp() {
+function NewChirp(posts, setPosts) {
+  
+  const {user} = useAuthContext()
   const [chirp, setChirp] = useState('')
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(chirp)
     console.log(e)
 
     if (chirp.length > 280) {
       alert('Posts must be fewer than 280 characters!')
+    }
+    const response = await fetch('/chirp', {
+      method: 'POST',
+      body: JSON.stringify(user.jwt, chirp),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${user.jwt}`
+      }
+    })
+    const json = await response.json()
+
+    if (!response.ok) {
+      // setError(json.error)
+      // setEmptyFields(json.emptyFields)
+      console.log('not okay', user.jwt);
+      console.log("stringify", JSON.stringify(user.jwt, chirp))
+    }
+    if (response.ok) {
+      setChirp('')
+      setPosts(json, ...posts)
     }
   }
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Chirp from '../components/Chirp'
 import NewChirp from '../components/NewChirp'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 function Home() {
   const [posts, setPosts] = useState([])
   console.log(posts, setPosts)
+
+  const { user } = useAuthContext()
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,7 +28,8 @@ function Home() {
         Home page 🐦
       </div>
       <div className='flex flex-col items-center'>
-        <NewChirp></NewChirp>
+        {user && <NewChirp posts={posts} setPosts={setPosts}></NewChirp>}
+
         <ul className='flex flex-col items-center w-5/6 max-w-2xl'>
           {posts.map((post) => (
             <Chirp
