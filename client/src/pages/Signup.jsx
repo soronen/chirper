@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
+import { useSignup } from '../hooks/useSignup'
 
 function Signup() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { signup, error, isLoading } = useSignup()
 
-  const handlesubmit = () => {}
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordAgain, setPasswordAgain] = useState('')
+
+  const handlesubmit = async (e) => {
+    e.preventDefault()
+    console.log('register pressed')
+    await signup(username, password)
+  }
 
   return (
     <div className='min-w-full'>
@@ -20,9 +28,9 @@ function Signup() {
           <label className='pb-1'>Username: </label>
           <input
             className='text-black rounded-md p-1'
-            type='email'
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            type='text'
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
           <label className='pb-1 pt-4'>Password: </label>
           <input
@@ -35,14 +43,18 @@ function Signup() {
           <input
             className='text-black rounded-md p-1'
             type='password'
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            onChange={(e) => setPasswordAgain(e.target.value)}
+            value={passwordAgain}
           />
-          <button className='bg-pink-700 hover:bg-pink-500 mt-10 p-6 rounded-md text-xl font-bold'>
+          <button
+            className='bg-pink-700 hover:bg-pink-500 mt-10 p-6 rounded-md text-xl font-bold disabled:bg-pink-500'
+            disabled={isLoading}
+          >
             Submit
           </button>
         </form>
       </div>
+      {error && <div className='error'>{error}</div>}
     </div>
   )
 }

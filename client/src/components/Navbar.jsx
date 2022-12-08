@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 // components
 import LoginOrSignup from './LoginOrSignup'
 
+import { useAuthContext } from '../hooks/useAuthContext'
+import {useLogout } from '../hooks/useLogout'
+
 function Navbar() {
+
+  const { user } = useAuthContext()
+  const { logout } = useLogout()
+
   const location = useLocation()
   console.log(location.pathname)
 
-  const [loggedIn, setLoggedIn] = useState(true)
+  // const [loggedIn, setLoggedIn] = useState(true)
 
   const toggleLogOut = () => {
     window.confirm('Are you sure you want to log out?')
-      ? setLoggedIn(false)
-      : setLoggedIn(true)
+      ? logout()
+      : console.log('still logged in')
   }
 
   return (
@@ -41,7 +48,7 @@ function Navbar() {
           </Link>
         </div>
         <div className='flex flex-row gap-6'>
-          {loggedIn ? (
+          {user ? (
             <button
               onClick={toggleLogOut}
               className='rounded-lg p-2 hover:bg-violet-400'
