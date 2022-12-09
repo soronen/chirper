@@ -10,6 +10,7 @@ function Home() {
   const { user } = useAuthContext()
 
   useEffect(() => {
+
     const fetchPosts = async () => {
       const response = await fetch('/chirps')
       const json = await response.json()
@@ -20,6 +21,7 @@ function Home() {
       }
     }
     fetchPosts()
+
   }, [])
 
   return (

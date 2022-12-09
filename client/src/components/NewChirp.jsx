@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 function NewChirp(posts, setPosts) {
-  
-  const {user} = useAuthContext()
+  const { user } = useAuthContext()
   const [chirp, setChirp] = useState('')
 
   const handleSubmit = async (e) => {
@@ -11,24 +10,29 @@ function NewChirp(posts, setPosts) {
     console.log(chirp)
     console.log(e)
 
+    const body = {
+      jwt: user.jwt,
+      content: chirp
+    }
+    console.log(body);
+
     if (chirp.length > 280) {
       alert('Posts must be fewer than 280 characters!')
     }
     const response = await fetch('/chirp', {
       method: 'POST',
-      body: JSON.stringify(user.jwt, chirp),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${user.jwt}`
-      }
+      },
     })
     const json = await response.json()
 
     if (!response.ok) {
       // setError(json.error)
       // setEmptyFields(json.emptyFields)
-      console.log('not okay', user.jwt);
-      console.log("stringify", JSON.stringify(user.jwt, chirp))
+      console.log('not okay', response)
+      console.log('stringify', JSON.stringify([user.jwt, chirp]))
     }
     if (response.ok) {
       setChirp('')
@@ -39,8 +43,7 @@ function NewChirp(posts, setPosts) {
   return (
     <form
       onSubmit={handleSubmit}
-      className='flex flex-col bg-violet-400 text-white p-4 rounded-lg shadow-lg w-5/6 max-w-2xl mb-10 h-72'
-    >
+      className='flex flex-col bg-violet-400 text-white p-4 rounded-lg shadow-lg w-5/6 max-w-2xl mb-10 h-72'>
       <h3 className='text-2xl font-bold pb-2'>Create a new post:</h3>
       <textarea
         className='text-black resize-none autofill:no rounded-lg p-2 flex-grow'
@@ -55,15 +58,13 @@ function NewChirp(posts, setPosts) {
             type='file'
             accept='image/png, image/gif, image/jpeg'
             className='block w-full text-sm text-white file:mr-2 file:py-2 file:px-2 file:rounded-full file:border-0 file:text-xs file:font-semibold 
-          file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100
-    '
+          file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100'
           />
         </div>
 
         <button
           type='submit'
-          className='bg-pink-700 hover:bg-pink-500 mt-3 p-3  rounded-md w-2/5'
-        >
+          className='bg-pink-700 hover:bg-pink-500 mt-3 p-3  rounded-md w-2/5'>
           Send
         </button>
       </div>
