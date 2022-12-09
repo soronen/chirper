@@ -1,16 +1,18 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 // components
 import LoginOrSignup from './LoginOrSignup'
 
 import { useAuthContext } from '../hooks/useAuthContext'
-import {useLogout } from '../hooks/useLogout'
+import { useLogout } from '../hooks/useLogout'
 
 function Navbar() {
-
   const { user } = useAuthContext()
   const { logout } = useLogout()
+
+  const username = jwtDecode(user.jwt).username
 
   const location = useLocation()
   console.log(location.pathname)
@@ -47,14 +49,17 @@ function Navbar() {
             <h1>Profile</h1>
           </Link>
         </div>
-        <div className='flex flex-row gap-6'>
+        <div className='flex flex-row gap-4'>
           {user ? (
-            <button
-              onClick={toggleLogOut}
-              className='rounded-lg p-2 hover:bg-violet-400'
-            >
-              Log out
-            </button>
+            <>
+              <h1 className='rounded-lg p-2' >Logged in as {username}</h1>
+              <button
+                onClick={toggleLogOut}
+                className='rounded-lg p-2 hover:bg-violet-400'
+              >
+                Log out
+              </button>
+            </>
           ) : (
             <LoginOrSignup></LoginOrSignup>
           )}
