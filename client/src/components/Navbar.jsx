@@ -12,7 +12,10 @@ function Navbar() {
   const { user } = useAuthContext()
   const { logout } = useLogout()
 
-  const username = jwtDecode(user.jwt).username
+  let username = "null"
+  if (user) {
+    username = jwtDecode(user.jwt).username
+  }
 
   const location = useLocation()
   console.log(location.pathname)
@@ -28,7 +31,7 @@ function Navbar() {
   return (
     <header>
       <div className='bg-indigo-500 text-white h-14 text-lg flex flex-row justify-between items-center px-4'>
-        <div className='flex gap-6'>
+        <div className='flex gap-4'>
           <Link
             to='/'
             className='rounded-lg p-2 hover:bg-violet-400'
@@ -49,10 +52,10 @@ function Navbar() {
             <h1>Profile</h1>
           </Link>
         </div>
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-row'>
           {user ? (
             <>
-              <h1 className='rounded-lg p-2' >Logged in as {username}</h1>
+              <h1 className='rounded-lg p-2 mr-10' >Logged in as <strong>{username}</strong></h1>
               <button
                 onClick={toggleLogOut}
                 className='rounded-lg p-2 hover:bg-violet-400'
