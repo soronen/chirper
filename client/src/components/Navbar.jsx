@@ -32,6 +32,9 @@ function Navbar() {
     <header>
       <div className='bg-indigo-500 text-white h-14 text-lg flex flex-row justify-between items-center px-4'>
         <div className='flex gap-4'>
+
+
+
           <Link
             to='/'
             className='rounded-lg p-2 hover:bg-violet-400'
@@ -41,6 +44,7 @@ function Navbar() {
           >
             <h1>Home</h1>
           </Link>
+
           <Link
             to='/profile'
             className='rounded-lg p-2 hover:bg-violet-400'
@@ -51,6 +55,18 @@ function Navbar() {
           >
             <h1>Profile</h1>
           </Link>
+
+          <Link
+            to='/about'
+            className='rounded-lg p-2 hover:bg-violet-400'
+            style={{
+              backgroundColor:
+                location.pathname === '/about' ? '#a78bfa' : '',
+            }}
+          >
+            <h1>About</h1>
+          </Link>
+
         </div>
         <div className='flex flex-row'>
           {user ? (
