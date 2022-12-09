@@ -5,23 +5,16 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 function Home() {
   const [posts, setPosts] = useState([])
-  console.log(posts, setPosts)
-
   const { user } = useAuthContext()
 
   useEffect(() => {
-
     const fetchPosts = async () => {
       const response = await fetch('/chirps')
       const json = await response.json()
-
-      if (response.ok) {
-        console.log(json)
-        setPosts(json)
-      }
+      const reversedJson = json.reverse()
+      setPosts(reversedJson)
     }
     fetchPosts()
-
   }, [])
 
   return (

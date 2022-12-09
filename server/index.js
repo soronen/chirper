@@ -135,7 +135,7 @@ server.post('/chirp', async (req, res) => {
   newPost
     .save()
     .then((out) => {
-      res.status(200).send()
+      res.status(200).json(newPost)
     })
     .catch((err) => {
       console.log(err.message)

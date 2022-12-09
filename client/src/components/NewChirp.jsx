@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-function NewChirp(posts, setPosts) {
+function NewChirp({posts, setPosts}) {
   const { user } = useAuthContext()
   const [chirp, setChirp] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(chirp)
-    console.log(e)
 
     const body = {
       jwt: user.jwt,
@@ -27,16 +25,17 @@ function NewChirp(posts, setPosts) {
       },
     })
     const json = await response.json()
+    console.log('json response', json)
+
 
     if (!response.ok) {
-      // setError(json.error)
-      // setEmptyFields(json.emptyFields)
       console.log('not okay', response)
-      console.log('stringify', JSON.stringify([user.jwt, chirp]))
     }
     if (response.ok) {
       setChirp('')
-      setPosts(json, ...posts)
+      console.log("posts" , posts)
+      setPosts([json, ...posts])
+      console.log("posts set" , posts)
     }
   }
 
