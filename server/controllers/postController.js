@@ -106,8 +106,36 @@ const like = async (req, res) => {
     }
 };
 
+const deletePost = async (req, res) => {
+
+    const {postid} = req.body;
+    const {username} = req.user;
+
+    let post;
+    try {
+        post = await Chirp.findById(postid);
+    } catch (err) {
+        console.log(err.message)
+        return res.json({error : "Internal error "}).status(401);
+    }
+
+    if (!post) {
+        return res.json({error : "tweet not found"}).status(401);
+    }
+
+    if (post.username === username){
+        const _x = await Chirp.findByIdAndRemove(postid);
+        res.sendStatus(200);
+        return;
+    } else {
+        res.sendStatus(401);
+        return;
+    }
+};
+
 module.exports = {
   getAll,
   post,
   like,
+  deletePost
 };
