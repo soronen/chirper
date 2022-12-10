@@ -3,11 +3,14 @@ const mongoose = require("mongoose");
 
 // get all workouts
 const getAll = async (req, res) => {
+    const page = req.query.page || 1;
+    const skip = (page - 1) * 10;
   if (!req.user) {
-    const all = await Chirp.find();
+    const all = await Chirp.find().limit(10).skip(skip);
+    let out = [];
     res.json(all).status(200);
   } else {
-    const all = await Chirp.find();
+    const all = await Chirp.find().limit(10).skip(skip);
     let out = [];
     res.json(all).status(200);
   }
@@ -57,7 +60,7 @@ const like = async (req, res) => {
     if (post.likes.includes(username)) {
         try {
             post.likes = post.likes.filter(element => element !== username);
-            post.save();
+            await post.save();
             res.json({status : "Disliked tweet"}).status(200);
         } catch (err) {
             console.log(err.message);
@@ -66,7 +69,7 @@ const like = async (req, res) => {
     } else {
         try {
             post.likes.push(username);
-            post.save();
+            await post.save();
             res.json({status : "Liked tweet"}).status(200);
         } catch (err) {
             console.log(err.message);
