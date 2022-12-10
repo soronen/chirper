@@ -26,10 +26,10 @@ const chirpSchema = new Schema(
         },
       ],
     },
-    likes: {
-      type: Number,
-      required: true,
-    },
+    likes: [{
+      type: String,
+      maxlength: 16
+    }],
   },
   { timestamps: true }
 )
