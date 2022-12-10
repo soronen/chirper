@@ -4,9 +4,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import Chirp from './Chirp'
 
 // robot wrote this 🤖
-const Doomscroller = () => {
+const Doomscroller = ({items, setItems}) => {
   const [page, setPage] = React.useState(1)
-  const [items, setItems] = React.useState([])
   const [hasMore, setHasMore] = React.useState(true)
 
   useEffect(() => {

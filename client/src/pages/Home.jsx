@@ -18,7 +18,7 @@ function Home() {
       <div className='flex flex-col items-center'>
         {user && <NewChirp posts={posts} setPosts={setPosts}></NewChirp>}
 
-        <Doomscroller></Doomscroller> 
+        <Doomscroller items={posts} setItems={setPosts}></Doomscroller> 
       </div>
     </div>
   )
