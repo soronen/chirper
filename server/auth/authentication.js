@@ -5,7 +5,6 @@ const auth = async (req, res, next) => {
   // verify user is authenticated
   const { jwt } = req.body;
 
-
   if (!jwt) {
     return res.status(401).json({ error: "Authorization token required" });
   }
@@ -26,16 +25,15 @@ const personalizationCheck = async (req, res, next) => {
   const { jwt } = req.body;
 
   if (!jwt) {
-    next();
+    return next();
   }
-
 
   try {
     const { username } = jsonwt.verify(jwt, process.env.SECRET_KEY);
     req.user = await User.findOne({ username: username });
     next();
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     next();
   }
 };

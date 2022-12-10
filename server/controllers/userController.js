@@ -49,7 +49,6 @@ const register = async (req, res) => {
   res.json(out).status(200);
 };
 
-
 //login :D
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -86,7 +85,6 @@ const login = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-
   const username = req.params.id;
 
   const findOne = await User.findOne({ username });
@@ -99,8 +97,58 @@ const getUser = async (req, res) => {
   res.json(findOne).status(200);
 };
 
+const editProfile = async (req, res) => {
+  const { username } = req.user;
+  const { description, pfpUrl } = req.body;
+
+  let updater = {};
+
+  if (description) {
+    updater.description = description;
+  }
+  if (pfpUrl) {
+    updater.pfpUrl = pfpUrl;
+  }
+
+  const my_user = await User.findOneAndUpdate({ username }, updater);
+
+  res.sendStatus(200);
+};
+
+const follow = async (req, res) => {
+  const { username } = req.user;
+  const toFollow = req.body.username;
+
+  const me = await User.findOne({ username });
+  const target = await User.findOne({ username: toFollow });
+
+  if (!target) {
+    res.json({ error: "User doesn't exist" }).status(401);
+    return;
+  }
+
+  let me_list = me.follows;
+  let target_list = target.followers;
+
+  if (me_list.includes(toFollow)) {
+    me_list = me_list.filter((element) => element !== toFollow);
+    target_list = target_list.filter((element) => element !== username);
+    await User.findOneAndUpdate({username}, {follows : me_list})
+    await User.findOneAndUpdate({username : toFollow}, {followers : target_list})
+  } else {
+    me_list.push(toFollow);
+    target_list.push(username);
+    await User.findOneAndUpdate({username}, {follows : me_list})
+    await User.findOneAndUpdate({username : toFollow}, {followers : target_list})
+  }
+
+  res.sendStatus(200);
+};
+
 module.exports = {
   register,
   login,
   getUser,
+  editProfile,
+  follow,
 };

@@ -5,14 +5,42 @@ const mongoose = require("mongoose");
 const getAll = async (req, res) => {
     const page = req.query.page || 1;
     const skip = (page - 1) * 10;
-  if (!req.user) {
-    const all = await Chirp.find().limit(10).skip(skip);
-    let out = [];
-    res.json(all).status(200);
-  } else {
-    const all = await Chirp.find().limit(10).skip(skip);
-    let out = [];
-    res.json(all).status(200);
+  if (!req.user) { //all
+    const all = await Chirp.find({date: 'descending'}).limit(10).skip(skip).lean();
+    let out = all.map(x => {
+        const like = x.likes.length;
+        x.likes = like;
+        return x;
+    });
+    res.status(200)
+    res.json(out)
+    return;
+  } else { //personalized
+    const all = await Chirp.find({date: 'descending'}).lean();    
+    //replace likes array with number of likes
+    let out = all.map(x => {
+        const like = x.likes.length;
+        x.likes = like;
+        return x;
+    });
+    //filtering algorithm :D
+    let out_filtered = out.sort((x, y) => {
+        let value = 0;
+        if (req.user.follows.includes(x.username) && !req.user.follows.includes(y.username)) {
+            value += 50;
+        }
+        if (x.createdAt < y.createdAt) {
+            value += 50;
+        }
+        if (x.likes > y.likes) {
+            value += 50;
+        }
+        return value;
+    })
+    //page system
+    const slicedArray = out_filtered.slice(skip);
+    res.json(slicedArray).status(200);
+    return;
   }
 };
 
@@ -21,12 +49,14 @@ const post = async (req, res) => {
     const {content, images} = req.body;
     const {username} = req.user;
 
+
     const newPost = new Chirp({
         username: username,
         content: content,
         images: images,
         likes: [username]
     }); 
+    
 
     try {
         await newPost.save();
@@ -48,13 +78,11 @@ const like = async (req, res) => {
         post = await Chirp.findById(postid);
     } catch (err) {
         console.log(err.message)
-        res.json({error : "weird tweet id"}).status(401);
-        return;
+        return res.json({error : "weird tweet id"}).status(401);
     }
 
     if (!post) {
-        res.json({error : "tweet not found"}).status(401);
-        return;
+        return res.json({error : "tweet not found"}).status(401);
     }
 
     if (post.likes.includes(username)) {
