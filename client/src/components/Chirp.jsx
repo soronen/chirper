@@ -8,14 +8,14 @@ function Chirp({content, username, likes, time}) {
   // console.log('momentous', moment(date).fromNow());
 
   return (
-    <div className='bg-white text-black rounded-lg p-2 m-2 shadow-xl w-full'>
+    <div className='bg-white text-black rounded-lg p-2 my-4 shadow-lg'>
       <div className='flex justify-between pb-2'>
         <Link to='/user/exampleid' className='hover:underline'>
           <h1>{username}</h1>
         </Link>
         <h1>{moment(date).fromNow()}</h1>
       </div>
-      <p className='py-2 border-t-4 border-b-4 border-violet-200'>
+      <p className='py-3 border-t-4 border-b-4 border-violet-200'>
         {content}
       </p>
       <div className='flex justify-between pt-1'>

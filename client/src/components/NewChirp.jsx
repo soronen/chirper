@@ -42,7 +42,7 @@ function NewChirp({posts, setPosts}) {
   return (
     <form
       onSubmit={handleSubmit}
-      className='flex flex-col bg-violet-400 text-white p-4 rounded-lg shadow-lg w-5/6 max-w-2xl mb-10 h-72'>
+      className='flex flex-col bg-violet-400 text-white p-4 rounded-lg shadow-lg mb-10 h-72 w-full max-w-3xl'>
       <h3 className='text-2xl font-bold pb-2'>Create a new post:</h3>
       <textarea
         className='text-black resize-none autofill:no rounded-lg p-2 flex-grow'

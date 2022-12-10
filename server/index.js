@@ -47,11 +47,36 @@ function validate(token) {
  *     }
  * ]
  */
-server.get('/chirps', async (req, res) => {
-  Chirp.find().then((x) => {
-    res.status(200).json(x)
-  })
-})
+
+
+// server.get('/chirps', async (req, res) => {
+//   Chirp.find().then((x) => {
+//     res.status(200).json(x)
+//   })
+// })
+
+// robot wrote this code 🤖
+server.get('/chirps', (req, res) => {
+  // get the page number from the query string
+  const page = req.query.page || 1;
+  // calculate the number of items to skip
+  const skip = (page - 1) * 10;
+
+  // create the Mongoose query
+  const query = Chirp.find().limit(10).skip(skip);
+
+  // execute the query
+  query.exec((err, items) => {
+    if (err) {
+      // handle the error
+      return res.status(500).send(err);
+    }
+
+    // return the items
+    return res.status(200).json(items);
+  });
+});
+
 
 /**
  * @api {get} /:id Get user by username
@@ -267,3 +292,7 @@ server.post('/login', async (req, res) => {
 server.listen(3000, async () => {
   console.log('Server running on port 3000')
 })
+
+
+
+
