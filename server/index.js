@@ -8,6 +8,7 @@ const cors = require('cors')
 
 const postRoutes = require('./routes/postRouter')
 const userRoutes = require('./routes/userRouters')
+const imageRoutes = require('./routes/imageRouter')
 
 // express app
 const server = express()
@@ -21,6 +22,8 @@ server.use(morgan(':remote-addr :method :url :status'));
 // routes
 server.use('/api/posts', postRoutes)
 server.use('/api/user', userRoutes)
+server.use('/api/image', imageRoutes)
+
 
 
 // connect to db
