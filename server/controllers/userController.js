@@ -87,12 +87,14 @@ const login = async (req, res) => {
 const getUser = async (req, res) => {
   const username = req.params.id;
 
-  const findOne = await User.findOne({ username });
+  const findOne = await User.findOne({ username }).lean();
 
   if (!findOne) {
     res.json({ error: "User doesn't exist" }).status(401);
     return;
   }
+
+  delete findOne.passHash;
 
   res.json(findOne).status(200);
 };
