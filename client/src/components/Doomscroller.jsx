@@ -18,7 +18,7 @@ const Doomscroller = ({ items, setItems }) => {
       let response = null
 
       if (user) {
-        response = await fetch(apiUrl + '/posts/', {
+        response = await fetch(apiUrl + '/posts/getAll', {
           method: 'GET',
           body: JSON.stringify({jwt: user.jwt,}),
           headers: {
@@ -43,7 +43,7 @@ const Doomscroller = ({ items, setItems }) => {
     setPage(nextPage)
 
     // make a GET request to the server to fetch the next page of items
-    fetch(`/chirps?page=${nextPage}`)
+    fetch(apiUrl + `/posts/getAll?page=${nextPage}`)
       .then((res) => res.json())
       .then((newItems) => {
         // add the new items to the list
