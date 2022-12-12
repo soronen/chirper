@@ -37,14 +37,9 @@ const register = async (req, res) => {
 
   let out = { username: username };
 
-  if (isValid) {
-    out.jwt = await jwt.sign({ username: username }, process.env.SECRET_KEY, {
-      expiresIn: "24h",
-    });
-  } else {
-    res.json({ error: "Invalid password" }).status(401);
-    return;
-  }
+  out.jwt = jwt.sign({ username: username }, process.env.SECRET_KEY, {
+    expiresIn: "24h",
+  });
 
   res.json(out).status(200);
 };
@@ -135,13 +130,19 @@ const follow = async (req, res) => {
   if (me_list.includes(toFollow)) {
     me_list = me_list.filter((element) => element !== toFollow);
     target_list = target_list.filter((element) => element !== username);
-    await User.findOneAndUpdate({username}, {follows : me_list})
-    await User.findOneAndUpdate({username : toFollow}, {followers : target_list})
+    await User.findOneAndUpdate({ username }, { follows: me_list });
+    await User.findOneAndUpdate(
+      { username: toFollow },
+      { followers: target_list }
+    );
   } else {
     me_list.push(toFollow);
     target_list.push(username);
-    await User.findOneAndUpdate({username}, {follows : me_list})
-    await User.findOneAndUpdate({username : toFollow}, {followers : target_list})
+    await User.findOneAndUpdate({ username }, { follows: me_list });
+    await User.findOneAndUpdate(
+      { username: toFollow },
+      { followers: target_list }
+    );
   }
 
   res.sendStatus(200);
