@@ -32,7 +32,7 @@ function Chirp({ content, username, impressions, time, postid, loggedUser, image
 
     }
     if (likes.length > 3) {
-      return likes.slice(0, -1).join(', ').concat(' and ' + likes.slice(-1)) + ` and ${likes.length-3} others liked this`
+      return likes.join(', ') + ` and ${likes.length-3} others liked this`
     }
   }
 
