@@ -6,13 +6,9 @@ const getAll = async (req, res) => {
     const page = req.query.page || 1;
     const skip = (page - 1) * 10;
   if (!req.user) { //all
-    const all = await Chirp.find().limit(10).skip(skip).sort('-createdAt').lean();
-    let out = all.map(x => {
-        const like = x.likes.length;
-        x.likes = like;
-        return x;
-    });
     console.log('standard frontpage')
+    const all = await Chirp.find().limit(10).skip(skip).sort('-createdAt').lean();
+    let out = all
     res.status(200)
     res.json(out)
     return;
@@ -20,11 +16,7 @@ const getAll = async (req, res) => {
     console.log('personalized frontpage')
     const all = await Chirp.find().limit(10).skip(skip).sort('-createdAt').lean();
     //replace likes array with number of likes
-    let out = all.map(x => {
-        const like = x.likes.length;
-        x.likes = like;
-        return x;
-    });
+    let out = all
     //filtering algorithm :D
     let out_filtered = out.sort((x, y) => {
         let value = 0;

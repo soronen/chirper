@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useAuthContext } from '../hooks/useAuthContext'
+import jwtDecode from 'jwt-decode'
 
 import Chirp from './Chirp'
 
@@ -11,7 +12,13 @@ console.log(apiUrl)
 const Doomscroller = ({ items, setItems }) => {
   const [page, setPage] = React.useState(1)
   const [hasMore, setHasMore] = React.useState(true)
+
   const { user } = useAuthContext()
+  let username = "null"
+  if (user !== null && user.jtw !== null) {
+    username = jwtDecode(user.jwt).username
+    console.log('username of doom ', username);
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -20,7 +27,7 @@ const Doomscroller = ({ items, setItems }) => {
       if (user) {
         response = await fetch(apiUrl + '/posts/getAll', {
           method: 'GET',
-          body: JSON.stringify({jwt: user.jwt,}),
+          body: JSON.stringify({jwt: user.jwt}),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -65,11 +72,13 @@ const Doomscroller = ({ items, setItems }) => {
         hasMore={hasMore}>
         {items.map((post) => (
           <Chirp
+            postid={post._id}
             key={post._id}
             content={post.content}
             username={post.username}
-            likes={post.likes}
-            time={post.updatedAt}></Chirp>
+            impressions={post.likes}
+            time={post.updatedAt}
+            loggedUser={username}></Chirp>
         ))}
       </InfiniteScroll>
     </ul>
