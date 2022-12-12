@@ -16,7 +16,7 @@ function LoginOrSignup() {
     <>
       <button
         onClick={toggleLogin}
-        className='rounded-lg p-2 hover:bg-violet-400'
+        className='rounded-lg p-2 hover:bg-violet-400 mr-1'
         style={{ backgroundColor: loginPopupVisible ? '#a78bfa' : '' }}
       >
         Login

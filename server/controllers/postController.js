@@ -12,10 +12,12 @@ const getAll = async (req, res) => {
         x.likes = like;
         return x;
     });
+    console.log('standard frontpage')
     res.status(200)
     res.json(out)
     return;
   } else { //personalized
+    console.log('personalized frontpage')
     const all = await Chirp.find({date: 'descending'}).lean();    
     //replace likes array with number of likes
     let out = all.map(x => {

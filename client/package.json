@@ -1,6 +1,6 @@
 {
   "homepage": "https://soronen.github.io/chirper",
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:4001",
   "name": "client",
   "version": "0.1.0",
   "private": true,

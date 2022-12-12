@@ -8,16 +8,18 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(null)
   const { dispatch } = useAuthContext()
 
+  const apiUrl = process.env.REACT_APP_API_URL
+
   const login = async (username, password) => {
     setIsLoading(true)
     setError(null)
 
-    console.log('login');
+    console.log('login')
 
-    const response = await fetch('/login', {
+    const response = await fetch(apiUrl + '/user/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ username, password })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
     })
     const json = await response.json()
 
@@ -30,7 +32,7 @@ export const useLogin = () => {
       localStorage.setItem('user', JSON.stringify(json))
 
       // update the auth context
-      dispatch({type: 'LOGIN', payload: json})
+      dispatch({ type: 'LOGIN', payload: json })
 
       // update loading state
       setIsLoading(false)
