@@ -34,23 +34,6 @@ function Chirp({ content, username, impressions, time, postid, loggedUser, image
     if (likes.length > 3) {
       return likes.slice(0, -1).join(', ').concat(' and ' + likes.slice(-1)) + ` and ${likes.length-3} others liked this`
     }
-
-
-    // if (likes === undefined || likes.length === 0 || likes === 0) {
-    //   return 0
-    // }
-    // if (likes.length === 1) {
-    //   return likes[0]
-    // }
-    // if (likes.length <= 3) {
-    //   return `${likes.slice(0, likes.length - 1).join(', ')} and ${
-    //     likes[likes.length - 1]
-    //   }`
-    // }
-    // if (likes.length > 3) {
-    //   return `${likes.slice(0, likes.length - 1).join(', ')} and ${likes.length} others}`
-    // }
-    // return likes.length
   }
 
   const like = async () => {
@@ -99,12 +82,12 @@ function Chirp({ content, username, impressions, time, postid, loggedUser, image
       <img src={images[0]} />
       <div className='flex justify-between pt-1'>
         <button className='text-xl p-1 rounded-lg hover:bg-violet-500 hover:text-white'>
-          12💬
+          0💬
         </button>
         <div className='flex'>
           <p className='self-center text-md mr-2'>{whoLiked()}</p>
           <button
-            className='text-2xl rounded-lg hover:bg-violet-500 hover:text-white'
+            className='text-2xl rounded-lg px-2 bg-violet-300 hover:bg-violet-500 hover:text-white'
             onClick={like}>
             💖
           </button>

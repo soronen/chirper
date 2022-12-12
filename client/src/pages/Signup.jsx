@@ -11,6 +11,7 @@ function Signup() {
   const handlesubmit = async (e) => {
     e.preventDefault()
     console.log('register pressed')
+    if(!username || !password) return alert('Please fill in all fields.')
     await signup(username, password)
   }
 

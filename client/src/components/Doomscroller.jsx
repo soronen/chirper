@@ -15,10 +15,15 @@ const Doomscroller = ({ items, setItems }) => {
 
   const { user } = useAuthContext()
   let username = "null"
-  if (user !== null && user.jtw !== null) {
-    username = jwtDecode(user.jwt).username
-    console.log('username of doom ', username);
+  try {
+    if (user !== null && user.jtw !== null) {
+      username = jwtDecode(user.jwt).username
+      console.log('username: ', username);
+    }
+  } catch (error) {
+    console.log(error)
   }
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -27,7 +32,7 @@ const Doomscroller = ({ items, setItems }) => {
       if (user) {
         response = await fetch(apiUrl + '/posts/getAll', {
           method: 'GET',
-          body: JSON.stringify({jwt: user.jwt}),
+          // body: JSON.stringify({jwt: user.jwt}),
           headers: {
             'Content-Type': 'application/json',
           },
