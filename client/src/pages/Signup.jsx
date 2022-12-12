@@ -15,7 +15,7 @@ function Signup() {
   }
 
   return (
-    <div className='min-w-full'>
+    <div className='min-w-full pb-20'>
       <h1 className='text-5xl font-extrabold text-violet-800 py-16 text-center'>
         ✨Sign up today for free✨
       </h1>

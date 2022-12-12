@@ -5,6 +5,8 @@ function NewChirp({posts, setPosts}) {
   const { user } = useAuthContext()
   const [chirp, setChirp] = useState('')
 
+  const apiUrl = process.env.REACT_APP_API_URL
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -17,7 +19,7 @@ function NewChirp({posts, setPosts}) {
     if (chirp.length > 280) {
       alert('Posts must be fewer than 280 characters!')
     }
-    const response = await fetch('/chirp', {
+    const response = await fetch(apiUrl + '/posts/post/', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {

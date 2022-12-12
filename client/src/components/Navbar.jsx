@@ -13,7 +13,7 @@ function Navbar() {
   const { logout } = useLogout()
 
   let username = "null"
-  if (user) {
+  if (user !== null && user.jtw !== null) {
     username = jwtDecode(user.jwt).username
   }
 
