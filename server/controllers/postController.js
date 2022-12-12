@@ -13,7 +13,7 @@ const getAll = async (req, res) => {
     res.json(out)
     return;
   } else { //personalized
-    const all = await Chirp.find().sort('-createdAt').lean();    
+    const all = await Chirp.find().limit(10).skip(skip).sort('-createdAt').lean();
     //replace likes array with number of likes
     let out = all
     //filtering algorithm :D
