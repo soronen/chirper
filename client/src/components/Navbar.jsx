@@ -13,9 +13,13 @@ function Navbar() {
   
   const { user } = useAuthContext()
   let username = "null"
-  if (user !== null && user.jtw !== null) {
-    username = jwtDecode(user.jwt).username
-    console.log('username: ', username);
+  try {
+    if (user !== null && user.jtw !== null) {
+      username = jwtDecode(user.jwt).username
+      console.log('username: ', username);
+    }
+  } catch (error) {
+    console.log(error)
   }
 
   const location = useLocation()
