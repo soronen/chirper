@@ -55,7 +55,7 @@ function ProfileInfo() {
     const [followers, setFollowers] = useState(person.followers)
     const [followed, setFollowed] = useState(person.follows)
     const [picture, setPicture] = useState(person.pfpLink)
-    const [verified, setVerified] = useState(person.verified)
+    const [verified, setVerified] = useState(false)
     const [desc, setDesc] = useState(person.description)
     const [followersShown, setFollowersShown] = useState(false)
     const [followedShown, setFollowedShown] = useState(false)

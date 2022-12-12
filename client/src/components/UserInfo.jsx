@@ -5,9 +5,16 @@ import { useAuthContext } from '../hooks/useAuthContext'
 const apiUrl = process.env.REACT_APP_API_URL
 
 function ShowFollowers({followers}){
+    const { user } = useAuthContext()
+    let loggedUser = "null"
+    if (user) {
+        loggedUser = jwtDecode(user.jwt).username
+        
+    }
    
     const followerButtons = followers.map((follower, index) =>
-        <Link key={index} to={'/user/' + follower} className='followerName'>
+    
+        <Link key={index} to={follower === loggedUser ? '/profile' : '/user/' + follower } className='followerName'>
             <h3>{follower}</h3>
             <span className="tooltiptext">{follower}</span>
         </Link>
@@ -18,9 +25,15 @@ function ShowFollowers({followers}){
     )
 }
 function ShowFollowed({followeds}){
- 
+    const { user } = useAuthContext()
+    let loggedUser = "null"
+    if (user) {
+        loggedUser = jwtDecode(user.jwt).username
+        
+    }
+   
  const followedButtons = followeds.map((followed, index) =>
-        <Link key={index} to={'/user/' + followed} className='followerName'>
+        <Link key={index} to={followed === loggedUser ? '/profile' : '/user/' + followed} className='followerName'>
           <h3>{followed}</h3>
           <span className="tooltiptext">{followed}</span>
         </Link>
@@ -31,6 +44,15 @@ function ShowFollowed({followeds}){
     )
 }
 function UserInfo({nameOfUser}) {
+    const { user } = useAuthContext()
+    let loggedUser = "null"
+    if (user) {
+        loggedUser = jwtDecode(user.jwt).username
+        
+    }
+    if(nameOfUser === loggedUser){
+        window.location.href = "/profile#/profile"
+    }
     const person = {
         name: nameOfUser,
         description: "My amazing description",
@@ -42,12 +64,7 @@ function UserInfo({nameOfUser}) {
     
     }
     
-    const { user } = useAuthContext()
-    let loggedUser = "null"
-    if (user) {
-        loggedUser = jwtDecode(user.jwt).username
-        
-    }
+  
     
 
     const [followers, setFollowers] = useState(person.followers)
@@ -80,8 +97,10 @@ function UserInfo({nameOfUser}) {
        
     }  
     useEffect(() => {
-  
+            
             fetchUser()
+            setFollowedShown(false)
+            setFollowersShown(false)
 
     }, [nameOfUser])
    
@@ -150,7 +169,7 @@ function UserInfo({nameOfUser}) {
             className='followersContainer'
             style={{ visibility: followersShown ? 'visible' : 'hidden' }}
             >
-            <ShowFollowers followers={followers}></ShowFollowers>
+            <ShowFollowers followers={followers} username={nameOfUser}></ShowFollowers>
             </div>
             </div>
             <div className='followedSet'>
@@ -161,7 +180,7 @@ function UserInfo({nameOfUser}) {
             className='followedContainer'
             style={{ visibility: followedShown ? 'visible' : 'hidden' }}
             >
-            <ShowFollowed followeds={followeds}></ShowFollowed>
+            <ShowFollowed followeds={followeds} username={nameOfUser}></ShowFollowed>
             </div>
             </div>
             <button
