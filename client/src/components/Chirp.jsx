@@ -78,8 +78,10 @@ function Chirp({ content, username, impressions, time, postid, loggedUser, image
         </Link>
         <h1>{moment(date).fromNow()}</h1>
       </div>
-      <p className='py-3 border-t-4 border-b-4 border-violet-200'>{content}</p>
-      <img src={images[0]} />
+      <div className='py-3 border-t-4 border-b-4 border-violet-200' >
+      <p className='pb-5'>{content}</p>
+      {images[0] !== undefined && <img className='border-4 border-violet-300 rounded-lg max-h-64' src={images[0]}/>}
+      </div>
       <div className='flex justify-between pt-1'>
         <button className='text-xl p-1 rounded-lg hover:bg-violet-500 hover:text-white'>
           0💬

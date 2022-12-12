@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useAuthContext } from '../hooks/useAuthContext'
 import jwtDecode from 'jwt-decode'
@@ -10,7 +10,7 @@ console.log(apiUrl)
 
 // robot wrote this 🤖
 const Doomscroller = ({ items, setItems }) => {
-  const [page, setPage] = React.useState(1)
+  const [page, setPage] = React.useState(0)
   const [hasMore, setHasMore] = React.useState(true)
 
   const { user } = useAuthContext()
@@ -23,31 +23,6 @@ const Doomscroller = ({ items, setItems }) => {
   } catch (error) {
     console.log(error)
   }
-
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      let response = null
-
-      if (user) {
-        response = await fetch(apiUrl + '/posts/getAll', {
-          method: 'GET',
-          // body: JSON.stringify({jwt: user.jwt}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      }
-      if (!user) {
-        response = await fetch(apiUrl + '/posts/getAll')
-      }
-
-      const json = await response.json()
-      // const reversedJson = json.reverse()
-      setItems(json)
-    }
-    fetchPosts()
-  }, [])
 
   const fetchMoreData = () => {
     // increment the page number
