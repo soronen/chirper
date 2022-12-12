@@ -74,6 +74,7 @@ const Doomscroller = ({ items, setItems }) => {
           <Chirp
             postid={post._id}
             key={post._id}
+            images={post.images}
             content={post.content}
             username={post.username}
             impressions={post.likes}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-function Chirp({ content, username, impressions, time, postid, loggedUser }) {
+function Chirp({ content, username, impressions, time, postid, loggedUser, images }) {
   const { user } = useAuthContext()
   const apiUrl = process.env.REACT_APP_API_URL
 
@@ -96,6 +96,7 @@ function Chirp({ content, username, impressions, time, postid, loggedUser }) {
         <h1>{moment(date).fromNow()}</h1>
       </div>
       <p className='py-3 border-t-4 border-b-4 border-violet-200'>{content}</p>
+      <img src={images[0]} />
       <div className='flex justify-between pt-1'>
         <button className='text-xl p-1 rounded-lg hover:bg-violet-500 hover:text-white'>
           12💬

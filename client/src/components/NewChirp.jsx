@@ -4,6 +4,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 function NewChirp({posts, setPosts}) {
   const { user } = useAuthContext()
   const [chirp, setChirp] = useState('')
+  const [image, setImage] = useState("")
 
   const apiUrl = process.env.REACT_APP_API_URL
 
@@ -12,7 +13,8 @@ function NewChirp({posts, setPosts}) {
 
     const body = {
       jwt: user.jwt,
-      content: chirp
+      content: chirp,
+      images : [image]
     }
     console.log(body);
 
@@ -41,6 +43,36 @@ function NewChirp({posts, setPosts}) {
     }
   }
 
+  const fileinput = async (input) => {
+    const file = input.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = async function() {
+        console.log('RESULT ', reader.result)
+
+        const body = {
+          jwt: user.jwt,
+          image: reader.result
+        }
+
+        const out = await fetch(apiUrl + '/image/upload', {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        const json = await out.json()
+
+        const neww = json.url;
+
+        setImage(neww)
+
+        console.log("testi testi ",image, neww)
+    }
+    reader.readAsDataURL(file);
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -55,9 +87,9 @@ function NewChirp({posts, setPosts}) {
       <div className='flex justify-between items-end'>
         <div>
           <h1 className='font-bold pt-2 pb-1'>Attach a picture:</h1>
-          <input
+          <input onChange={x => {x.preventDefault(); fileinput(x)}}
             type='file'
-            accept='image/png, image/gif, image/jpeg'
+            accept='image/png, image/jpeg, image/jpg'
             className='block w-full text-sm text-white file:mr-2 file:py-2 file:px-2 file:rounded-full file:border-0 file:text-xs file:font-semibold 
           file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100'
           />
