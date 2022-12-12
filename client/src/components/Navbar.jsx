@@ -9,12 +9,13 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useLogout } from '../hooks/useLogout'
 
 function Navbar() {
-  const { user } = useAuthContext()
   const { logout } = useLogout()
-
+  
+  const { user } = useAuthContext()
   let username = "null"
   if (user !== null && user.jtw !== null) {
     username = jwtDecode(user.jwt).username
+    console.log('username: ', username);
   }
 
   const location = useLocation()
