@@ -1,32 +1,28 @@
-const express = require('express')
+const express = require("express");
 const {
   register,
   login,
   getUser,
   editProfile,
-  follow
-} = require('../controllers/userController')
+  follow,
+} = require("../controllers/userController");
 
-
-const {auth} = require('../auth/authentication')
-const router = express.Router()
+const { auth } = require("../auth/authentication");
+const router = express.Router();
 
 // POST register request
-router.post('/register', register)
+router.post("/register", register);
 
 // POST login request
-router.post('/login', login)
+router.post("/login", login);
 
 // GET user
-router.get('/:id', getUser)
+router.get("/:id", getUser);
 
 //edit profile
-router.patch('/editProfile', auth, editProfile)
+router.patch("/editProfile", auth, editProfile);
 
 //follow profile
-router.patch('/follow', auth, follow)
+router.patch("/follow", auth, follow);
 
-
-
-
-module.exports = router
+module.exports = router;

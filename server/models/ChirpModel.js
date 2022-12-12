@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const chirpSchema = new Schema(
   {
@@ -17,22 +17,23 @@ const chirpSchema = new Schema(
       type: [String],
       validate: [
         {
-          validator: value => value.length <= 4,
-          message: 'Array must have a length of 0-4',
+          validator: (value) => value.length <= 4,
+          message: "Array must have a length of 0-4",
         },
         {
-          validator: value => value.every(str => str.length <= 100),
-          message: 'Strings in array must be less than 100 characters long',
+          validator: (value) => value.every((str) => str.length <= 100),
+          message: "Strings in array must be less than 100 characters long",
         },
       ],
     },
-    likes: [{
-      type: String,
-      maxlength: 16
-    }],
+    likes: [
+      {
+        type: String,
+        maxlength: 16,
+      },
+    ],
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('Chirp', chirpSchema)
-
+module.exports = mongoose.model("Chirp", chirpSchema);
