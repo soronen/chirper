@@ -1,0 +1,212 @@
+.topProfile {
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.tooltiptext{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    margin-left: 10px;
+  
+    /* Position the tooltip */
+    position: absolute;
+    
+    
+}
+.followerName:hover{
+    text-decoration: underline;
+}
+.followerName:hover .tooltiptext{
+    visibility: visible;
+    
+}
+.bottomProfile {
+    padding: 10px;
+    border-radius: 0.5rem;
+    background-color: #6864f4;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.bottomUserProfile {
+    padding: 10px;
+    border-radius: 0.5rem;
+    background-color: #6864f4;
+    height: 170px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.dropdownsContainer{
+    float: right;
+    display: flex;
+    
+   
+}
+.dropdownsContainer button{
+    margin-top: 10px;
+    min-width: 120px;
+    height: 50px;
+    float: left;
+    
+}
+.followedContainer{
+    background-color: rgb(167, 139, 250);
+    position: absolute;
+    top: 65px;
+    width: 120px;
+    border-radius: 0.5rem;
+    padding: 5px;
+    color: #ffffff;
+    height: 130px;
+    overflow-x: hidden;
+  overflow-y: auto;
+}
+.followersContainer{
+    background-color: rgb(167, 139, 250);
+    position: absolute;
+    top: 65px;
+    width: 120px;
+    border-radius: 0.5rem;
+    padding: 5px;
+    color: #ffffff;
+    height: 130px;
+    overflow-x: hidden;
+  overflow-y: auto;
+}
+.followersSet {
+    position: relative;
+    width: 120px;
+    
+}
+.followedSet {
+    position: relative;
+    width: 120px;
+}
+.profileContainer img{
+    width: 150px;
+    height: 150px;
+    padding-top: 10px;
+    display: block;
+    float: left;
+}
+.profileContainer h2{
+    padding-left: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    float: left;
+    color: rgb(91 33 182);
+}
+.bottomProfile button {
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 0.5rem;
+    float: left;
+    background-color: rgb(8, 164, 32);
+}
+.bottomProfile button:hover {
+    
+    background-color: rgb(3, 143, 85);
+    
+    color: #ffffff;
+    padding: 5px 10px;
+  }
+.profileContainer form{
+    float: left;
+    width: 100%;
+}
+
+.profileContainer textarea{
+    resize: none;
+    height: 100px;
+    width: 100%;
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.userTextArea {
+    height: 100px;
+}
+.bottomUserProfile h3{
+    text-align: center;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+    
+    font-size: 20px;
+    font-weight: bold;
+    float: left;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+.bottomProfile h3{
+    text-align: center;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+    
+    font-size: 20px;
+    font-weight: bold;
+    float: left;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.topProfile button {
+    
+    background-color: #6864f4;
+    border-radius: 0.5rem;
+   
+    color: #ffffff;
+    padding: 5px 10px;
+  }
+  
+.topProfile button:hover {
+    
+    background-color: rgb(167, 139, 250);
+    
+    color: #ffffff;
+    padding: 5px 10px;
+  }
+  
+  .bottomProfile button:disabled,
+  .bottomProfile button[disabled]{
+    
+    background-color: #cccccc;
+    color: #666666;
+  }
+
+  /* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #6864f4; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #554fff; 
+  }

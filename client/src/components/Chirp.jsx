@@ -73,7 +73,7 @@ function Chirp({ content, username, impressions, time, postid, loggedUser, image
   return (
     <div className='bg-white text-black rounded-lg p-2 my-4 shadow-lg'>
       <div className='flex justify-between pb-2'>
-        <Link to='/user/exampleid' className='hover:underline'>
+        <Link to={'user/'+username} className='hover:underline'>
           <h1>{username}</h1>
         </Link>
         <h1>{moment(date).fromNow()}</h1>

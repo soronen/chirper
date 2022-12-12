@@ -1,7 +1,7 @@
 import React from 'react'
-
+import ProfileInfo from '../components/ProfileInfo'
 function Profile() {
-  return <div>Profile</div>
+  return <ProfileInfo></ProfileInfo>
 }
 
 export default Profile
