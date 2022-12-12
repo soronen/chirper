@@ -9,8 +9,7 @@ const register = async (req, res) => {
   const existsAlready = await User.exists({ username });
 
   if (existsAlready) {
-    res.json({ error: "User already exists" }).status(401);
-    return;
+    return await res.json({ error: "User already exists" }).status(401);
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -28,11 +27,10 @@ const register = async (req, res) => {
   });
 
   try {
-    await register.save();
+    register.save();
   } catch (err) {
     console.log(err.message);
-    res.json({ error: "Internal error" }).status(500);
-    return;
+    return res.json({ error: "Internal error" }).status(500);
   }
 
   let out = { username: username };
@@ -41,7 +39,7 @@ const register = async (req, res) => {
     expiresIn: "24h",
   });
 
-  res.json(out).status(200);
+  return res.json(out).status(200);
 };
 
 //login :D
@@ -51,8 +49,7 @@ const login = async (req, res) => {
   const findOne = await User.findOne({ username });
 
   if (!findOne) {
-    res.json({ error: "User doesn't exist" }).status(401);
-    return;
+    return res.status(500).json({ error: "User doesn't exist" });
   }
 
   let isValid;
@@ -61,8 +58,7 @@ const login = async (req, res) => {
     isValid = await bcrypt.compare(password, findOne.passHash);
   } catch (err) {
     console.log(err.message);
-    res.json({ error: "Invalid password" }).status(401);
-    return;
+    return res.status(500).json({ error: "Invalid password" });
   }
 
   let out = { username: username };
@@ -72,11 +68,10 @@ const login = async (req, res) => {
       expiresIn: "24h",
     });
   } else {
-    res.json({ error: "Invalid password" }).status(401);
-    return;
+    return res.status(401).json({ error: "Invalid password" });
   }
 
-  res.json(out).status(200);
+  return res.status(200).json(out);
 };
 
 const getUser = async (req, res) => {
@@ -85,13 +80,12 @@ const getUser = async (req, res) => {
   const findOne = await User.findOne({ username }).lean();
 
   if (!findOne) {
-    res.json({ error: "User doesn't exist" }).status(401);
-    return;
+    return res.status(401).json({ error: "User doesn't exist" });
   }
 
   delete findOne.passHash;
 
-  res.json(findOne).status(200);
+  res.status(200).json(findOne);
 };
 
 const editProfile = async (req, res) => {
@@ -120,8 +114,7 @@ const follow = async (req, res) => {
   const target = await User.findOne({ username: toFollow });
 
   if (!target) {
-    res.json({ error: "User doesn't exist" }).status(401);
-    return;
+    return res.status(401).json({ error: "User doesn't exist" });
   }
 
   let me_list = me.follows;
