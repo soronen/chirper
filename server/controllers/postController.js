@@ -60,7 +60,7 @@ const post = async (req, res) => {
 
     try {
         await newPost.save();
-        res.sendStatus(200);
+        res.json(newPost).status(200);
     } catch (err) {
         console.log(err.message)
         res.json({error : "Internal server error"}).status(501) 
