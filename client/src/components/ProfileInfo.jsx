@@ -9,8 +9,8 @@ const person = {
     name: "PeteBoi",
     description: "My amazing description",
     pfpLink: "https://www.w3schools.com/images/w3schools_green.jpg",
-    followers: ["SomeDude", "BestDude", "WorstDude", "SomeDude", "BestDude", "SomeDude", "BestDude", "SomeDude", "BestDude",],
-    follows: ["TheBestOfAllDudes", "AverageDude"],
+    followers: [],
+    follows: [],
     verified: true
 
 }
@@ -54,28 +54,30 @@ function ProfileInfo() {
     
     const [followers, setFollowers] = useState(person.followers)
     const [followed, setFollowed] = useState(person.follows)
-    const [picture, setPicture] = useState(person.pfpLink)
+    const [picture, setPicture] = useState("")
     const [verified, setVerified] = useState(false)
-    const [desc, setDesc] = useState(person.description)
+    const [desc, setDesc] = useState("")
     const [followersShown, setFollowersShown] = useState(false)
     const [followedShown, setFollowedShown] = useState(false)
     const [descIsChanged, setDescIsChanged] = useState(false)
     const [isLoading, setIsLoading] = useState(null)
     useEffect(() => {
         const fetchUser = async() => {
-            
-            let response = null
-            response = await fetch(apiUrl + '/user/' + username)
-            const json = await response.json()
-            setVerified(json.verified)
-            setPicture(json.pfpUrl)
-            setDesc(json.description)
-            setFollowed(json.follows)
-            setFollowers(json.followers)
+            if(username !== 'null'){
+                let response = null
+                response = await fetch(apiUrl + '/user/' + username)
+                const json = await response.json()
+                setVerified(json.verified)
+                setPicture(json.pfpUrl)
+                setDesc(json.description)
+                setFollowed(json.follows)
+                setFollowers(json.followers)
+            }
+
            
         }  
             fetchUser()
-    }, [])
+    }, [username])
    
     const saveDescription = async () => {
         setIsLoading(true)
