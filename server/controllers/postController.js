@@ -12,22 +12,14 @@ const getAll = async (req, res) => {
       .skip(skip)
       .sort("-createdAt")
       .lean();
-    let out = all.map((x) => {
-      const like = x.likes.length;
-      x.likes = like;
-      return x;
-    });
+    let out = all // residual
     console.log("standard frontpage");
     return res.status(200).json(out);
   } else {
     //personalized
     const all = await Chirp.find().sort("-createdAt").lean();
     //replace likes array with number of likes
-    let out = all.map((x) => {
-      const like = x.likes.length;
-      x.likes = like;
-      return x;
-    });
+    let out = all // residual
     //filtering algorithm :D
     let out_filtered = out.sort((x, y) => {
       let value = 0;
