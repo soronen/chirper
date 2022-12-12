@@ -9,6 +9,7 @@ function NewChirp({posts, setPosts}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if(!chirp) return alert('Your post is empty!')
 
     const body = {
       jwt: user.jwt,
