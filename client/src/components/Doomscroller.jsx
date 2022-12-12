@@ -31,8 +31,8 @@ const Doomscroller = ({ items, setItems }) => {
       }
 
       const json = await response.json()
-      const reversedJson = json.reverse()
-      setItems(reversedJson)
+      // const reversedJson = json.reverse()
+      setItems(json)
     }
     fetchPosts()
   }, [])
