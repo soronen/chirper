@@ -27,7 +27,7 @@ const Doomscroller = ({ items, setItems }) => {
       if (user) {
         response = await fetch(apiUrl + '/posts/getAll', {
           method: 'GET',
-          body: JSON.stringify({jwt: user.jwt}),
+          // body: JSON.stringify({jwt: user.jwt}),
           headers: {
             'Content-Type': 'application/json',
           },

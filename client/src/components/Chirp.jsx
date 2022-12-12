@@ -98,12 +98,12 @@ function Chirp({ content, username, impressions, time, postid, loggedUser }) {
       <p className='py-3 border-t-4 border-b-4 border-violet-200'>{content}</p>
       <div className='flex justify-between pt-1'>
         <button className='text-xl p-1 rounded-lg hover:bg-violet-500 hover:text-white'>
-          12💬
+          0💬
         </button>
         <div className='flex'>
           <p className='self-center text-md mr-2'>{whoLiked()}</p>
           <button
-            className='text-2xl rounded-lg hover:bg-violet-500 hover:text-white'
+            className='text-2xl rounded-lg px-2 bg-violet-300 hover:bg-violet-500 hover:text-white'
             onClick={like}>
             💖
           </button>

@@ -9,6 +9,8 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('login pressed')
+    if(!username || !password) return alert('Please fill in all fields.')
+
     await login(username, password)
   }
 
