@@ -1,8 +1,26 @@
-.topProfile {
-    height: 200px;
+.profileContainer{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+.topProfile input{
+    margin-left: 10px;
+}
+
+.middleProfileContainer{
+    width: 100%;
+    height: 100px;
+}
+.topProfile {
+    
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.bottomProfileContainer {
+    width: 100%;
+    height: 250px;
 }
 .tooltiptext{
     visibility: hidden;
@@ -33,7 +51,7 @@
     height: 200px;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 100%;
 }
 .bottomUserProfile {
     padding: 10px;
@@ -42,21 +60,22 @@
     height: 170px;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 100%;
+}
+.nameAndImage {
+    width: 100%;
+ float: left;   
 }
 .dropdownsContainer{
+   
+    width: 100%;
     float: right;
     display: flex;
-    
+   
    
 }
-.dropdownsContainer button{
-    margin-top: 10px;
-    min-width: 120px;
-    height: 50px;
-    float: left;
-    
-}
+
+
 .followedContainer{
     background-color: rgb(167, 139, 250);
     position: absolute;
@@ -84,11 +103,20 @@
 .followersSet {
     position: relative;
     width: 120px;
-    
+    margin-right: 10px;
 }
 .followedSet {
     position: relative;
     width: 120px;
+    margin-right: 10px;
+}
+
+.dropdownsContainer button{
+    margin-top: 10px;
+    min-width: 120px;
+    height: 50px;
+    float: left;
+    
 }
 .profileContainer img{
     width: 150px;
@@ -98,7 +126,7 @@
     float: left;
 }
 .profileContainer h2{
-    padding-left: 10px;
+    margin-left: 10px;
     font-size: 50px;
     font-weight: bold;
     float: left;
@@ -167,7 +195,31 @@
     margin-bottom: 10px;
 }
 
-.topProfile button {
+.pictureButton {
+    margin-left: 10px;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 0.5rem;
+    float: left;
+    background-color: rgb(8, 164, 32);
+  }
+  
+.pictureButton:hover {
+    
+    background-color: rgb(3, 143, 85);
+    
+    color: #ffffff;
+    padding: 5px 10px;
+  }
+  
+  .pictureButton:disabled,
+  .pictureButton[disabled]{
+    
+    background-color: #cccccc;
+    color: #666666;
+  }
+
+.dropdownsContainer button {
     
     background-color: #6864f4;
     border-radius: 0.5rem;
@@ -176,7 +228,7 @@
     padding: 5px 10px;
   }
   
-.topProfile button:hover {
+.dropdownsContainer button:hover {
     
     background-color: rgb(167, 139, 250);
     

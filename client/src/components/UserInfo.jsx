@@ -57,8 +57,8 @@ function UserInfo({nameOfUser}) {
         name: nameOfUser,
         description: "My amazing description",
         pfpLink: "https://www.w3schools.com/images/w3schools_green.jpg",
-        followers: ["SomeDude", "BestDude", "WorstDude"],
-        follows: ["TheBestOfAllDudes", "AverageDude"],
+        followers: [],
+        follows: [],
         verified: true,
         followed: true
     
@@ -72,7 +72,7 @@ function UserInfo({nameOfUser}) {
     const [picture, setPicture] = useState("")
     const [verified, setVerified] = useState(false)
     const [followed, setFollowed] = useState(false)
-    const [desc, setDesc] = useState(person.description)
+    const [desc, setDesc] = useState("")
     const [followersShown, setFollowersShown] = useState(false)
     const [followedShown, setFollowedShown] = useState(false)
     const [isLoading, setIsLoading] = useState(null)
@@ -82,27 +82,32 @@ function UserInfo({nameOfUser}) {
         let response = null
         response = await fetch(apiUrl + '/user/' + nameOfUser)
         const json = await response.json()
-       
-        if(json.followers.includes(loggedUser)){
+        console.log(json.followers)
+
+        if(json.followers.includes(loggedUser) && loggedUser!=="null"){
             setFollowed(true)
+            console.log("includes")
         }
         else{
             setFollowed(false)
+            console.log("doesnt include")
         }
         setVerified(json.verified)
         setPicture(json.pfpUrl)
         setDesc(json.description)
         setFolloweds(json.follows)
         setFollowers(json.followers)
-       
+ 
     }  
+    
     useEffect(() => {
             
             fetchUser()
+            
             setFollowedShown(false)
             setFollowersShown(false)
 
-    }, [nameOfUser])
+    }, [nameOfUser, loggedUser])
    
     const follow = async () => {
         setIsLoading(true)
@@ -136,7 +141,7 @@ function UserInfo({nameOfUser}) {
           
         }
       }
-
+     
     const toggleFollowed = (e) => {
         followed ? setFollowed(false) : setFollowed(true)
         follow()
@@ -154,12 +159,17 @@ function UserInfo({nameOfUser}) {
             setFollowersShown(false)
         }
     }
+    
     return (
         <div className='profileContainer'>
             <div className='topProfile'>
             <img src={picture} alt="Profile Picture" />
             <h2>{nameOfUser} {verified ? "✓" : ""}</h2>
             
+           
+            
+            </div>
+            <div className='middleProfileContainer'>
             <div className='dropdownsContainer'>
             <div className='followersSet'>
             <button
@@ -184,12 +194,13 @@ function UserInfo({nameOfUser}) {
             </div>
             </div>
             <button
+            hidden={loggedUser==="null"}
             disabled={isLoading}
             onClick={toggleFollowed}
             >{followed ? "Followed" : "Follow"}</button>
             </div>
-            
             </div>
+            <div className='bottomProfileContainer'>
             <div className='bottomUserProfile'>
             <h3>Description</h3>
             
@@ -203,7 +214,7 @@ function UserInfo({nameOfUser}) {
                  
             
             </div>
-            
+            </div>
         </div>
     )
 

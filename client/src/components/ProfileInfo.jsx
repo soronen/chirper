@@ -49,33 +49,38 @@ function ProfileInfo() {
         username = jwtDecode(user.jwt).username
         
     }
-   
+    
     
     
     const [followers, setFollowers] = useState(person.followers)
     const [followed, setFollowed] = useState(person.follows)
     const [picture, setPicture] = useState("")
+    const [newPicture, setNewPicture] = useState("")
     const [verified, setVerified] = useState(false)
     const [desc, setDesc] = useState("")
     const [followersShown, setFollowersShown] = useState(false)
     const [followedShown, setFollowedShown] = useState(false)
     const [descIsChanged, setDescIsChanged] = useState(false)
     const [isLoading, setIsLoading] = useState(null)
-    useEffect(() => {
-        const fetchUser = async() => {
-            if(username !== 'null'){
-                let response = null
-                response = await fetch(apiUrl + '/user/' + username)
-                const json = await response.json()
-                setVerified(json.verified)
-                setPicture(json.pfpUrl)
-                setDesc(json.description)
-                setFollowed(json.follows)
-                setFollowers(json.followers)
-            }
+  
+    const fetchUser = async() => {
+        
+        if(username !== 'null'){
+            let response = null
+            response = await fetch(apiUrl + '/user/' + username)
+            const json = await response.json()
+            setVerified(json.verified)
+            setPicture(json.pfpUrl)
+            setDesc(json.description)
+            setFollowed(json.follows)
+            setFollowers(json.followers)
+        }
 
-           
-        }  
+       
+    } 
+  
+    useEffect(() => {
+ 
             fetchUser()
     }, [username])
    
@@ -101,6 +106,34 @@ function ProfileInfo() {
         }
         if (response.ok) {
             setIsLoading(false)
+          console.log('okay', response)
+          
+        }
+      }
+      const changePicture = async () => {
+        setIsLoading(true)
+        const body = {
+          jwt: user.jwt,
+          description: null,
+          pfpUrl: newPicture
+        }
+        console.log(body)
+    
+        const response = await fetch(apiUrl + '/user/editProfile/', {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        if (!response.ok) {
+            setIsLoading(false)
+          console.log('not okay', response)
+        }
+        if (response.ok) {
+            setIsLoading(false)
+            setNewPicture("")
+            fetchUser()
           console.log('okay', response)
           
         }
@@ -136,13 +169,56 @@ function ProfileInfo() {
         if(followersShown){
             setFollowersShown(false)
         }
+
     }
+    
+    const fileinput = async (input) => {
+        const file = input.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = async function() {
+            console.log('RESULT ', reader.result)
+    
+            const body = {
+              jwt: user.jwt,
+              image: reader.result
+            }
+    
+            const out = await fetch(apiUrl + '/image/upload', {
+              method: 'POST',
+              body: JSON.stringify(body),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+    
+            const json = await out.json()
+    
+            const neww = json.url;
+    
+            setNewPicture(neww)
+    
+           
+        }
+        reader.readAsDataURL(file);
+      }
     return (
         <div className='profileContainer'>
             <div className='topProfile'>
+            <div className='nameAndImage'>
             <img src={picture} alt="Profile Picture" />
             <h2>{username} {verified ? "✓" : ""}</h2>
+           
+          <input onChange={x => {x.preventDefault(); fileinput(x)}}
+            type='file'
+            accept='image/png, image/jpeg, image/jpg'
             
+          />
+           <button className='pictureButton' onClick={changePicture} type='submit' disabled={newPicture===""}>Change Image</button>
+            </div>
+        
+            
+            </div>
+            <div className='middleProfileContainer'>
             <div className='dropdownsContainer'>
             <div className='followersSet'>
             <button
@@ -166,12 +242,12 @@ function ProfileInfo() {
             <ShowFollowed followed={followed}></ShowFollowed>
             </div>
             </div>
-            <button
+            <button className='verifyButton'
             onClick={toggleVerified}
             >{verified ? "Unverify Me!" : "Verify Me!"}</button>
             </div>
-            
             </div>
+            <div className='bottomProfileContainer'>
             <div className='bottomProfile'>
             <h3>Description</h3>
             <form
@@ -188,7 +264,7 @@ function ProfileInfo() {
                  <button type='submit' disabled={!descIsChanged}>Save Changes</button>
             </form>
             </div>
-            
+            </div>
         </div>
     )
 
