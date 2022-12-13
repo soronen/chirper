@@ -5,6 +5,7 @@
 }
 .topProfile input{
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .middleProfileContainer{
@@ -196,6 +197,7 @@
 }
 
 .pictureButton {
+    margin-top: 10px;
     margin-left: 10px;
     color: #ffffff;
     padding: 5px 10px;
