@@ -27,7 +27,7 @@ function App() {
         <div className='min-h-full flex-grow bg-violet-200'>
           <Routes>
             <Route path='/' element={<Home></Home>}></Route>
-            <Route path='/profile' element={!user ? <Profile /> : <Navigate to="/" />}></Route>
+            <Route path='/profile' element={<Profile></Profile>}></Route>
             <Route path='/user/:id' element={<User></User>}></Route>
             <Route path='/register' element={!user ? <Signup /> : <Navigate to="/" />}></Route>
             <Route path='/about' element={<About></About>}></Route>
