@@ -6,6 +6,7 @@ function Footer() {
   return (
     <header>
       <footer className='bg-indigo-500 text-white h-20 text-lg flex flex-row justify-between items-center px-4 gap-6'>
+        
         <Link
           to='/contact'
           className='rounded-lg p-2 hover:bg-violet-400'

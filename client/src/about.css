@@ -1,0 +1,18 @@
+.aboutHeader {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: 1px solid black;
+    padding: 1em;
+    margin-left: 5em;
+    margin-right: 5em;
+    margin-bottom: 5em;
+    margin-top: 5em;
+}
+
+.box1 {
+    border: 1px solid black;
+    padding: 0em;
+    margin-left: 5em;
+    margin-right: 5em;
+    margin-bottom: 5em;
+}
