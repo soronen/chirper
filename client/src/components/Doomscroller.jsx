@@ -79,7 +79,7 @@ const Doomscroller = ({ items, setItems }) => {
             content={post.content}
             username={post.username}
             impressions={post.likes}
-            time={post.updatedAt}
+            time={post.createdAt}
             loggedUser={username}></Chirp>
         ))}
       </InfiniteScroll>
