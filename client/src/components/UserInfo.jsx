@@ -51,7 +51,7 @@ function UserInfo({nameOfUser}) {
         
     }
     if(nameOfUser === loggedUser){
-        window.location.href = "/profile#/profile"
+        window.location.href = "#/profile"
     }
     const person = {
         name: nameOfUser,
