@@ -12,6 +12,9 @@ function Signup() {
     e.preventDefault()
     console.log('register pressed')
     if(!username || !password) return alert('Please fill in all fields.')
+    
+    if (password !== passwordAgain) return alert('Passwords do not match.')
+    
     await signup(username, password)
   }
 
