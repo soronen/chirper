@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/chirper/static/css/main.898e5f5f.css",
-    "main.js": "/chirper/static/js/main.0489d10d.js",
+    "main.js": "/chirper/static/js/main.3337fdfa.js",
     "index.html": "/chirper/index.html",
     "main.898e5f5f.css.map": "/chirper/static/css/main.898e5f5f.css.map",
-    "main.0489d10d.js.map": "/chirper/static/js/main.0489d10d.js.map"
+    "main.3337fdfa.js.map": "/chirper/static/js/main.3337fdfa.js.map"
   },
   "entrypoints": [
     "static/css/main.898e5f5f.css",
-    "static/js/main.0489d10d.js"
+    "static/js/main.3337fdfa.js"
   ]
 }
