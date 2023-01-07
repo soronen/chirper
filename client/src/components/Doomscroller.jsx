@@ -1,34 +1,31 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useAuthContext } from '../hooks/useAuthContext'
 import jwtDecode from 'jwt-decode'
 
 import Chirp from './Chirp'
 
-
 // robot wrote this 🤖
 const Doomscroller = ({ items, setItems }) => {
   const [page, setPage] = React.useState(0)
   const [hasMore, setHasMore] = React.useState(true)
-  
+
   const { user } = useAuthContext()
-  let username = "null"
+  let username = 'null'
   try {
     if (user !== null && user.jtw !== null) {
       username = jwtDecode(user.jwt).username
-      console.log('username: ', username);
+      console.log('username: ', username)
     }
   } catch (error) {
     console.log(error)
   }
   const apiUrl = process.env.REACT_APP_API_URL
   console.log(apiUrl)
-  
-  
+
   useEffect(() => {
     // increment the page number
     const nextPage = page + 1
-    setPage(nextPage)
 
     // make a GET request to the server to fetch the next page of items
     fetch(apiUrl + `/posts/getAll?page=${nextPage}`)
@@ -36,11 +33,17 @@ const Doomscroller = ({ items, setItems }) => {
       .then((newItems) => {
         // add the new items to the list
         setItems([...items, ...newItems])
+        setPage(nextPage)
 
         // set hasMore to false when there are no more items to fetch
         if (newItems.length === 0) {
           setHasMore(false)
         }
+      })
+      .catch(() => {
+        setTimeout(() => {
+          fetchMoreData()
+        }, 3000)
       })
     console.log('items', items)
   }, [])
@@ -48,7 +51,6 @@ const Doomscroller = ({ items, setItems }) => {
   const fetchMoreData = () => {
     // increment the page number
     const nextPage = page + 1
-    setPage(nextPage)
 
     // make a GET request to the server to fetch the next page of items
     fetch(apiUrl + `/posts/getAll?page=${nextPage}`)
@@ -56,21 +58,24 @@ const Doomscroller = ({ items, setItems }) => {
       .then((newItems) => {
         // add the new items to the list
         setItems([...items, ...newItems])
+        setPage(nextPage)
 
         // set hasMore to false when there are no more items to fetch
         if (newItems.length === 0) {
           setHasMore(false)
         }
       })
+      .catch(() => {
+        console.log('error connecting to backend, retying in 3 seconds')
+        setTimeout(() => {
+          fetchMoreData()
+        }, 3000)
+      })
     console.log('items', items)
   }
   return (
     <ul className='w-full max-w-3xl'>
-      <InfiniteScroll
-        className=''
-        dataLength={items.length}
-        next={fetchMoreData}
-        hasMore={hasMore}>
+      <InfiniteScroll className='' dataLength={items.length} next={fetchMoreData} hasMore={hasMore}>
         {items.map((post) => (
           <Chirp
             postid={post._id}
