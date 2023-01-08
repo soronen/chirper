@@ -9,6 +9,7 @@ import Chirp from './Chirp'
 const Doomscroller = ({ items, setItems }) => {
   const [page, setPage] = React.useState(0)
   const [hasMore, setHasMore] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
 
   const { user } = useAuthContext()
   let username = 'null'
@@ -39,8 +40,11 @@ const Doomscroller = ({ items, setItems }) => {
         if (newItems.length === 0) {
           setHasMore(false)
         }
+        setLoading(false)
       })
       .catch(() => {
+        setLoading(true)
+        console.log('error connecting to backend, retrying in 3 seconds')
         setTimeout(() => {
           fetchMoreData()
         }, 3000)
@@ -64,6 +68,7 @@ const Doomscroller = ({ items, setItems }) => {
         if (newItems.length === 0) {
           setHasMore(false)
         }
+        setLoading(false)
       })
       .catch(() => {
         console.log('error connecting to backend, retying in 3 seconds')
@@ -73,7 +78,7 @@ const Doomscroller = ({ items, setItems }) => {
       })
     console.log('items', items)
   }
-  return (
+  return !loading ? (
     <ul className='w-full max-w-3xl'>
       <InfiniteScroll className='' dataLength={items.length} next={fetchMoreData} hasMore={hasMore}>
         {items.map((post) => (
@@ -89,6 +94,8 @@ const Doomscroller = ({ items, setItems }) => {
         ))}
       </InfiniteScroll>
     </ul>
+  ) : (
+    <h2 className='text-5xl font-extrabold text-violet-800 text-center py-16'>Loading...</h2>
   )
 }
 
